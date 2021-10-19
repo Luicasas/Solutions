@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 
 public class findNumber {
     public static void main(String[] args) throws IOException {
-        long startTime = System.nanoTime();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         int input = Integer.parseInt(in.readLine());
         int[] array = {5, 10, 20, 30, 40, 2, 4, 8, 200, 36, 52};
@@ -12,12 +11,10 @@ public class findNumber {
         boolean check = findIfInList(array, input);
 
         if (check) {
-            System.out.println(input + " está en la lista");
+            System.out.println(input + " is in the array");
         } else {
-            System.out.println(input + " no está en la lista");
+            System.out.println(input + " is not in the array);
         }
-        long endTime = System.nanoTime() - startTime;
-        System.out.println(endTime);
     }
     public static boolean findIfInList(int[] arr, int input) {
         for (int element : arr) {
