@@ -1,3 +1,1 @@
 # Solutions
-
-Lucas Patron Rodriguez
