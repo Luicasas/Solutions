@@ -13,7 +13,7 @@ public class findNumber {
         if (check) {
             System.out.println(input + " is in the array");
         } else {
-            System.out.println(input + " is not in the array);
+            System.out.println(input + " is not in the array");
         }
     }
     public static boolean findIfInList(int[] arr, int input) {
