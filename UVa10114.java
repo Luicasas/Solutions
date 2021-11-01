@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
@@ -11,34 +9,34 @@ public class UVa10114 {
 
         while ((s = in.readLine()) != null) {
             StringTokenizer st = new StringTokenizer(s);
-            int monthsLoan = Integer.parseInt(st.nextToken());
-            if (monthsLoan < 0) break;
+            int months = Integer.parseInt(st.nextToken());
+            if (months < 0) break;
             double downPayment = Double.parseDouble(st.nextToken());
-            double amountLoan = Double.parseDouble(st.nextToken());
+            double car = Double.parseDouble(st.nextToken());
+            double carValue = car + downPayment;
+            double payment = car / months;
             int depreciationRecords = Integer.parseInt(st.nextToken());
-            TreeMap<Integer, Double> loans = new TreeMap<>();
-            
+            TreeMap<Integer, Double> loan = new TreeMap<>();
+
             for (int i = 0; i < depreciationRecords; i++) {
                 st = new StringTokenizer(in.readLine());
-                int months = Integer.parseInt(st.nextToken());
+                int month = Integer.parseInt(st.nextToken());
                 double percentage = Double.parseDouble(st.nextToken());
-                loans.put(months, percentage);
+                loan.put(month, percentage);
             }
+            int month = 0;
 
-            double debt = amountLoan;
-            double depreciation = (amountLoan + downPayment) - ((amountLoan + downPayment) * loans.get(0));
-            double percentage = loans.get(0);
-            int i = 1;
-            for (; i <= monthsLoan; i++) {
-                debt -= downPayment;
-                System.out.println(debt + " " + depreciation + " " + percentage);
-                if (debt < depreciation) break;
-                if (loans.containsKey(i)) {
-                    percentage = loans.get(i);
+            double depreciation, percentage = loan.get(0);
+            depreciation = carValue - (carValue * loan.get(0));
+            for (int i = 1; i <= months; i++) {
+                if (car < depreciation) break;
+                if (loan.containsKey(i)) {
+                    percentage = loan.get(i);
                 }
-                depreciation -= (depreciation*percentage);
+                car -= payment; depreciation -= (depreciation * percentage);
+                month++;
             }
-            System.out.println(i + (i > 1 ? " months" : " month"));
+            System.out.println(month + (month == 1 ? " month" : " months"));
         }
     }
 }
