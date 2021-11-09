@@ -12,10 +12,7 @@ class Solution {
             string.append(st.nextToken());
         }
         reverse.reverse();
-        String resultReverse = reverse.toString();
-        String result = string.toString();
-        System.out.println(result);
-        System.out.println(resultReverse);
+        String resultReverse = reverse.toString(), result = string.toString();
         return resultReverse.equals(result);
     }
 }
