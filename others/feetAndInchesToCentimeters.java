@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        System.out.println(calcFeetAndInchesToCentimeters(5, 7));
-        System.out.println(calcFeetAndInchesToCentimeters(67));
+        System.out.println(calcFeetAndInchesToCentimeters(8, 10));
+        System.out.println(calcFeetAndInchesToCentimeters(107));
     }
 
     public static double calcFeetAndInchesToCentimeters(double feet, double inches) {
