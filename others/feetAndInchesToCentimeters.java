@@ -9,7 +9,7 @@ public class Main {
 
     public static double calcFeetAndInchesToCentimeters(double feet, double inches) {
         double result;
-        if (feet >= 0 || inches >= 0 && inches <= 12) {
+        if (feet >= 0 && (inches >= 0 && inches <= 12)) {
             result = feet * 30.48;
             result += inches * 2.54;
             return result;
