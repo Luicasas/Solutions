@@ -1,11 +1,8 @@
-package com.timbuchalka;
+package Masterclass;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-/**
- * Created by dev on 18/09/15.
- */
 public class Album {
     private String name;
     private String artist;
@@ -53,23 +50,4 @@ public class Album {
         System.out.println("The song " + title + " is not in this album");
         return false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
