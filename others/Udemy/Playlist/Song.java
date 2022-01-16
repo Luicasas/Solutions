@@ -1,8 +1,5 @@
-package com.timbuchalka;
+package Masterclass;
 
-/**
- * Created by dev on 18/09/15.
- */
 public class Song {
     private String title;
     private double duration;
