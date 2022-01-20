@@ -31,13 +31,25 @@ class Solution {
 }
 */
 
-/* Stringbuilder solution
+/* Stringbuilder solution 16ms
 class Solution {
     public boolean isPalindrome(int x) {
         String number = String.valueOf(x);
         StringBuilder stringBuilder = new StringBuilder(number);
         stringBuilder.reverse();
         return (stringBuilder.toString().equals(number));
+    }
+}
+*/
+
+/* Stringbuilder optimized solution 15ms
+class Solution {
+    public boolean isPalindrome(int x) {
+        StringBuilder stringBuilder1 = new StringBuilder(String.valueOf(x));
+        StringBuilder stringBuilder2 = new StringBuilder(String.valueOf(x));
+        stringBuilder1.reverse();
+        int check = (stringBuilder1.compareTo(stringBuilder2));
+        return check == 0;
     }
 }
 */
