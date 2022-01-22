@@ -6,8 +6,6 @@ class Solution {
             set.add(character);
         }
         String result = set.toString();
-        System.out.println(result);
-        System.out.println(Arrays.toString(chars));
         return result.equals(Arrays.toString(chars));
     }
 }
