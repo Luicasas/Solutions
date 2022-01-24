@@ -1,12 +1,9 @@
-package com.timbuchalka;
+package com.example.game;
 
-import java.util.List;
+import java.util.*;
 
-/**
- * Created by dev on 30/09/15.
- */
 public interface ISaveable {
     List<String> write();
-    void read(List<String> savedValues);
 
+    void read(List<String> savedValues);
 }
