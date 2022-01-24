@@ -1,11 +1,8 @@
-package com.timbuchalka;
+package com.example.game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dev on 30/09/15.
- */
 public class Player implements ISaveable {
     private String name;
     private int hitPoints;
@@ -80,20 +77,5 @@ public class Player implements ISaveable {
             this.strength = Integer.parseInt(savedValues.get(2));
             this.weapon = savedValues.get(3);
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
