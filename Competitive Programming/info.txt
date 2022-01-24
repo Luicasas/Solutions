@@ -1,4 +1,0 @@
-Leetcode
-Codewars
-Online Judge
-Virtual Judge
