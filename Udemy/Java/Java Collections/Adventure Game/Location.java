@@ -1,19 +1,20 @@
 import java.util.*;
 
-public class Location {
+public final class Location {
     private final int locationID;
     private final String description;
     private final Map<String, Integer> exits;
 
-    public Location(int locationID, String description) {
+    public Location(int locationID, String description, Map<String, Integer> exits) {
         this.locationID = locationID;
         this.description = description;
-        this.exits = new HashMap<>();
-        this.exits.put("Q", 0);
-    }
-
-    public void addExit(String direction, int location) {
-        exits.put(direction, location);
+        if (exits != null) {
+            this.exits = new HashMap<>(exits);
+            this.exits.put("Q", 0);
+        } else {
+            this.exits = new HashMap<>();
+            this.exits.put("Q", 0);
+        }
     }
 
     public int getLocationID() {
