@@ -1,4 +1,3 @@
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +9,7 @@ public final class HeavenlyBody {
     public HeavenlyBody(final String name, final double orbitalPeriod) {
         this.name = name;
         this.orbitalPeriod = orbitalPeriod;
-        this.satellites = new HashSet<HeavenlyBody>();
+        this.satellites = new HashSet<>();
     }
 
     public String getName() {
@@ -21,11 +20,11 @@ public final class HeavenlyBody {
         return this.orbitalPeriod;
     }
 
-    public boolean addMoon(final HeavenlyBody moon) {
-        return this.satellites.add(moon);
+    public void addMoon(final HeavenlyBody moon) {
+        this.satellites.add(moon);
     }
 
     public Set<HeavenlyBody> getSatellites() {
-        return new HashSet<HeavenlyBody>(this.satellites);
+        return new HashSet<>(this.satellites);
     }
 }
