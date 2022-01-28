@@ -8,8 +8,8 @@ public class Main {
     private static Set<HeavenlyBody> planets;
 
     static {
-        Main.solarSystem = new HashMap<String, HeavenlyBody>();
-        Main.planets = new HashSet<HeavenlyBody>();
+        Main.solarSystem = new HashMap<>();
+        Main.planets = new HashSet<>();
     }
 
     public static void main(final String[] args) {
@@ -67,17 +67,26 @@ public class Main {
             System.out.println("\t" + planet.getName());
         }
         final HeavenlyBody body = Main.solarSystem.get("Mars");
-        System.out.println("Moons of " + body.getName());
+        System.out.println("\nMoons of " + body.getName());
         for (final HeavenlyBody jupiterMoon : body.getSatellites()) {
             System.out.println("\t" + jupiterMoon.getName());
         }
-        final Set<HeavenlyBody> moons = new HashSet<HeavenlyBody>();
+        final Set<HeavenlyBody> moons = new HashSet<>();
         for (final HeavenlyBody planet2 : Main.planets) {
             moons.addAll(planet2.getSatellites());
         }
-        System.out.println("All Moons");
+        System.out.println("\nAll Moons");
         for (final HeavenlyBody moon : moons) {
             System.out.println("\t" + moon.getName());
+        }
+
+
+        System.out.println("=============");
+        HeavenlyBody pluto = new HeavenlyBody("Pluto", 842);
+        planets.add(pluto);
+
+        for (HeavenlyBody planet : planets) {
+            System.out.println(planet.getName() + ": " + planet.getOrbitalPeriod());
         }
     }
 }
