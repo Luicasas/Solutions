@@ -3,10 +3,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Map;
 
-public class Main
-{
+public class Main {
     private static Map<String, HeavenlyBody> solarSystem;
     private static Set<HeavenlyBody> planets;
+
+    static {
+        Main.solarSystem = new HashMap<String, HeavenlyBody>();
+        Main.planets = new HashSet<HeavenlyBody>();
+    }
 
     public static void main(final String[] args) {
         HeavenlyBody temp = new HeavenlyBody("Mercury", 88.0);
@@ -75,9 +79,5 @@ public class Main
         for (final HeavenlyBody moon : moons) {
             System.out.println("\t" + moon.getName());
         }
-    }
-    static {
-        Main.solarSystem = new HashMap<String, HeavenlyBody>();
-        Main.planets = new HashSet<HeavenlyBody>();
     }
 }
