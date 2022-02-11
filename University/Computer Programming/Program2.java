@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.concurrent.Executors;
@@ -23,7 +24,7 @@ public class Main {
                     2 -> Exit""" + RESET);
             try {
                 switch (Integer.parseInt(reader.readLine())) {
-                    case 1 -> Initialization();
+                    case 1 -> initialization();
                     case 2 -> {
                         System.out.println(RED + "Exiting program..." + RESET);
                         reader.close();
@@ -42,9 +43,10 @@ public class Main {
         }
     }
 
-    private static void Initialization() {
+    private static void initialization() {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println(YELLOW + """
+                    
                     The program consists of generating an array. Either randomly, or manually. First, enter the size
                     of the array (integer):""" + RESET);
             try {
@@ -54,23 +56,23 @@ public class Main {
                         1 -> Manually
                         2 -> Randomly""" + RESET);
                 switch (Integer.parseInt(reader.readLine())) {
-                    case 1 -> Manual();
-                    case 2 -> Randomly();
+                    case 1 -> manual();
+                    case 2 -> randomly();
                     default -> {
                         System.out.println(RED + "Not a correct choice. Exiting program..." + RESET);
                         reader.close();
                     }
                 }
             } catch (NumberFormatException exception) {
-                System.out.println(RED + "Not a valid integer. Exiting program." + RESET);
-                reader.close();
+                System.out.println(RED + "Not a valid integer. Resetting program back." + RESET);
+                initialization();
             }
         } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
 
-    private static void Manual() {
+    private static void manual() {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             int[] array = new int[arraySize];
             try {
@@ -85,22 +87,23 @@ public class Main {
                 System.out.println(RED + "Terminating program..." + RESET);
                 reader.close();
             } catch (NumberFormatException exception) {
-                System.out.println(RED + "Not a valid integer." + RESET);
+                System.out.println(RED + "Not a valid integer. Resetting program." + RESET);
+                manual();
             }
         } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
 
-    private static void Randomly() {
+    private static void randomly() {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            System.out.printf(CYAN + "Please define the lower and upper bound for the randomly generated numbers: "
+            System.out.printf("\n" + CYAN + "Please define the lower and upper bound for the randomly generated numbers: "
                     + RESET + "\n" + RED + "(separated by a space in a single line with values from %s to %s)" + "\n" +
                     "EXAMPLE: " + RESET + CYAN + "-5 374" + RESET + "\n", Integer.MIN_VALUE, Integer.MAX_VALUE);
             StringTokenizer stringTokenizer = new StringTokenizer(reader.readLine());
             if (stringTokenizer.countTokens() > 2) {
-                System.out.println(RED + "Invalid elements." + RESET);
-                reader.close();
+                System.out.println(RED + "Invalid elements. Resetting program." + RESET);
+                randomly();
             }
             try {
                 Randomizer randomizer = new Randomizer(arraySize, Integer.parseInt(stringTokenizer.nextToken()),
@@ -118,14 +121,18 @@ public class Main {
                 executorService.shutdown();
 
                 int[] array = Randomizer.getArray();
+                System.out.println("Final randomly generated array:");
                 for (int i = 0; i < array.length; i++) {
                     System.out.print(i < array.length - 1 ? CYAN + array[i] + " " : array[i] + RESET + "\n");
                 }
                 System.out.println(RED + "Terminating program..." + RESET);
                 reader.close();
             } catch (NumberFormatException exception) {
-                System.out.println(RED + "Not a valid integer." + RESET);
-                reader.close();
+                System.out.println(RED + "Not a valid input. Resetting program." + RESET);
+                randomly();
+            } catch (NoSuchElementException exception) {
+                System.out.println(RED + "Resetting program...");
+                randomly();
             }
         } catch (IOException exception) {
             exception.printStackTrace();
