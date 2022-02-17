@@ -1,109 +1,80 @@
 "use strict";
 // Generate random number
-const randomNumber = () => {
-    return Math.trunc(Math.random() * 10) + 1;
+const NUMBER_GENERATOR = () => {
+    return Math.trunc((Math.random() * 20) + 1);
 }
 
-// Modify when player's input is lower than the random number
-const lowerScore = () => {
-    currentScore--;
-    message.textContent = "Too low!"
-    score.textContent = currentScore.toString();
-}
-
-// Modify highscore
-const higherScore = () => {
-    currentScore--;
-    message.textContent = "Too high!";
-    score.textContent = currentScore.toString();
-}
-
-// Scoring the random number (win)
-const correctGuess = () => {
+// Run when play wins
+const PLAYER_WIN = () => {
+    wonStatus = true;
     if (currentScore > currentHighScore) {
         currentHighScore = currentScore;
     }
-    win = true;
-    message.textContent = "Correct!";
-    score.textContent = currentScore.toString();
-    highScore.textContent = currentHighScore;
-    currentScore++;
-    console.log(valueToGuess);
-
-    // Change background color and text
-    body.style.backgroundColor = '#60b347';
-    number.style.width = '30rem';
-    number.textContent = valueToGuess;
-
-    valueToGuess = randomNumber();
+    UPDATE_SCORE();
+    MESSAGE.textContent = "You won! Hit Again! to play more!";
+    document.body.style.backgroundColor = '#1aff00';
+    DISPLAY_NUMBER.textContent = numberToGuess.toString();
 }
 
-const lost = () => {
-    message.textContent = "You lost!";
+// Update score
+const UPDATE_SCORE = () => {
+    SCORE_DISPLAY.textContent = currentScore.toString();
+    HIGH_SCORE_DISPLAY.textContent = currentHighScore.toString();
 }
 
-const retry = () => {
-    win = false;
-    currentScore = 20;
-    score.textContent = currentScore;
-    highScore.textContent = currentHighScore;
-    message.textContent = "Start guessing...";
-    body.style.backgroundColor = '#222';
-    number.style.width = '15rem';
-    number.textContent = '?';
-    guess.value = '';
+// Again! button function
+const RETRY_EVENT = () => {
+    numberToGuess = NUMBER_GENERATOR();
+    document.body.style.backgroundColor = '#222';
+    DISPLAY_NUMBER.textContent = '?';
+    UPDATE_SCORE();
+    wonStatus = false;
 }
 
-// Variables to modify
-const message = document.querySelector('.message');
-const score = document.querySelector('.score');
-const highScore = document.querySelector('.highscore');
-const check = document.querySelector('.check');
-const again = document.querySelector('.again');
-const number = document.querySelector('.number');
-const body = document.querySelector('body');
-const guess = document.querySelector('.guess');
-
-// Playable values
-let win = false;
-let valueToGuess = randomNumber();
+// Core game values
+const PLAYERS_GUESS = document.querySelector('.guess');
+let numberToGuess = NUMBER_GENERATOR();
 let currentScore = 20;
-let currentHighScore = currentScore;
-console.log(valueToGuess);
+let currentHighScore = 0;
+let wonStatus = false;
 
-check.addEventListener('click', function () {
-    const choice = Number(document.querySelector('.guess').value);
-    if (!win) {
-        if (currentScore > currentHighScore) {
-            currentHighScore = currentScore;
-            highScore.textContent = currentHighScore;
-        }
-        if (!choice) {
-            message.textContent = "No input :(";
-        } else if (choice === valueToGuess) {
-            if (currentScore > 1) {
-                correctGuess();
+// Event variables
+const CHECK_BUTTON = document.querySelector('.check');
+const AGAIN_BUTTON = document.querySelector('.again');
+
+// HTML functionality variables
+const MESSAGE = document.querySelector('.message');
+const SCORE_DISPLAY = document.querySelector('.score');
+const HIGH_SCORE_DISPLAY = document.querySelector('.highscore');
+const DISPLAY_NUMBER = document.querySelector('.number');
+
+// Check (try) button event listener
+CHECK_BUTTON.addEventListener('click', function () {
+    console.log(numberToGuess);
+    if (currentScore > 1) {
+        if (!wonStatus) {
+            if (PLAYERS_GUESS.value) {
+                if (Number(PLAYERS_GUESS.value) === numberToGuess) {
+                    PLAYER_WIN();
+                } else if (Number(PLAYERS_GUESS.value) < numberToGuess) {
+                    currentScore--;
+                    MESSAGE.textContent = 'A little too low...';
+                    UPDATE_SCORE();
+                } else {
+                    currentScore--;
+                    MESSAGE.textContent = 'A little too high...';
+                    UPDATE_SCORE();
+                }
             } else {
-                lost();
-            }
-        } else if (choice < valueToGuess) {
-            if (currentScore > 1) {
-                lowerScore();
-            } else {
-                lost();
-            }
-        } else {
-            if (currentScore > 1) {
-                higherScore();
-            } else {
-                lost();
+                MESSAGE.textContent = 'You must enter a number.';
             }
         }
     } else {
-        message.textContent = 'You already won! Hit the again button.';
+        MESSAGE.textContent = 'You already lost! Click the again button to continue.';
     }
 });
 
-again.addEventListener('click', function () {
-    retry();
+// Calls retry function when clicking Again!
+AGAIN_BUTTON.addEventListener('click', function () {
+    RETRY_EVENT();
 });
