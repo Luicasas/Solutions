@@ -32,10 +32,17 @@ public class Main {
         @Override
         public void run() {
             for (int i = 0; i <= 5; i++) {
-                synchronized (lock) {
+                lock.lock();
+                try {
                     System.out.format(threadColor + "%s: runCount = %d\n",
                             Thread.currentThread().getName(), runCount++);
+                } finally {
+                    lock.unlock();
                 }
+                /*synchronized (lock) {
+                    System.out.format(threadColor + "%s: runCount = %d\n",
+                            Thread.currentThread().getName(), runCount++);
+                }*/
             }
         }
     }
